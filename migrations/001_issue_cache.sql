@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS issue_cache (query_key TEXT PRIMARY KEY, payload JSONB NOT NULL, fetched_at TIMESTAMPTZ NOT NULL DEFAULT now())

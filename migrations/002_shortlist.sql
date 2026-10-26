@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS shortlist (id UUID PRIMARY KEY DEFAULT gen_random_uuid(), session_id TEXT NOT NULL, issue_url TEXT NOT NULL, issue_title TEXT NOT NULL, repo TEXT NOT NULL, score INTEGER, difficulty TEXT, created_at TIMESTAMPTZ NOT NULL DEFAULT now(), UNIQUE (session_id, issue_url))

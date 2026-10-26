@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ContribMatch - Find GitHub issues that fit you</title>
+  <meta name="description" content="ContribMatch uses open-weight Gemma 4 to match developers with the GitHub issues they can actually solve. Built for Hacktoberfest 2026.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎃</text></svg>">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="glow g1"></div><div class="glow g2"></div>
+
+  <header class="nav">
+    <a class="brand" href="/"><span class="logo">🎃</span> ContribMatch</a>
+    <nav>
+      <a href="#how">How it works</a>
+      <button class="link-btn" id="openShortlist">My shortlist <span id="shortCount" class="pill">0</span></button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="hero">
+      <span class="badge">Hacktoberfest 2026 · Powered by open-weight Gemma 4</span>
+      <h1>Find the GitHub issue<br><span class="grad">you can actually solve.</span></h1>
+      <p class="sub">Enter your GitHub username. ContribMatch reads your public footprint, finds open Hacktoberfest-friendly issues, and ranks them by fit with a plain-English reason for each.</p>
+
+      <div class="tabs" role="tablist">
+        <button class="tab active" data-mode="user" role="tab">GitHub username</button>
+        <button class="tab" data-mode="manual" role="tab">Pick skills manually</button>
+      </div>
+
+      <form id="searchForm" class="search" autocomplete="off">
+        <div id="userMode" class="row">
+          <span class="at">@</span>
+          <input id="username" type="text" placeholder="your-github-username" maxlength="39" aria-label="GitHub username">
+          <button type="submit" class="btn primary">Find my issues</button>
+        </div>
+        <div id="manualMode" class="manual hidden">
+          <p class="hint">Choose languages and interests:</p>
+          <div class="chips" id="langChips"></div>
+          <div class="chips" id="topicChips"></div>
+          <button type="submit" class="btn primary">Find my issues</button>
+        </div>
+      </form>
+      <p id="formError" class="error hidden"></p>
+    </section>
+
+    <section id="results" class="results hidden">
+      <div id="profileCard" class="profile"></div>
+      <div id="loading" class="loading hidden">
+        <div class="status" id="statusText">Reading your profile…</div>
+        <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+      </div>
+      <div id="filters" class="filters hidden">
+        <label>Language <select id="fLang"><option value="">All</option></select></label>
+        <label>Difficulty <select id="fDiff"><option value="">All</option><option>easy</option><option>medium</option><option>hard</option></select></label>
+        <label>Min score <input id="fScore" type="range" min="0" max="90" step="10" value="0"><span id="fScoreVal">0</span></label>
+        <span id="resultMeta" class="meta"></span>
+      </div>
+      <div id="issueList" class="issues"></div>
+    </section>
+
+    <section class="how" id="how">
+      <h2>How it works</h2>
+      <div class="steps">
+        <div class="step"><b>1</b><h3>Read your profile</h3><p>We look at your public repos, languages and topics. No login, no write access.</p></div>
+        <div class="step"><b>2</b><h3>Search real issues</h3><p>Open, unassigned issues labeled <em>hacktoberfest</em> or <em>good first issue</em> from GitHub.</p></div>
+        <div class="step"><b>3</b><h3>Gemma 4 ranks them</h3><p>An open-weight model scores fit, estimates difficulty and explains why each issue suits you.</p></div>
+        <div class="step"><b>4</b><h3>Get a starter plan</h3><p>Pick an issue and get a short checklist to open your first pull request.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Built for Hacktoberfest 2026 · Best Open-Source AI Project · MIT licensed</p>
+    <p class="muted">Model-agnostic: any OpenAI-compatible endpoint serving Gemma 4.</p>
+  </footer>
+
+  <!-- Issue plan drawer -->
+  <aside id="drawer" class="drawer hidden" aria-hidden="true">
+    <div class="drawer-inner">
+      <button class="close" id="closeDrawer" aria-label="Close">×</button>
+      <div id="drawerBody"></div>
+    </div>
+  </aside>
+
+  <!-- Shortlist modal -->
+  <aside id="shortModal" class="drawer hidden" aria-hidden="true">
+    <div class="drawer-inner">
+      <button class="close" id="closeShort" aria-label="Close">×</button>
+      <h2>My shortlist</h2>
+      <div id="shortBody"></div>
+    </div>
+  </aside>
+
+  <script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+# ContribMatch config
+# Gemma 4 is called through any OpenAI-compatible endpoint (OpenRouter, Google AI Studio, Together, vLLM, Ollama...)
+
+[[secret]]
+name        = "LLM_API_KEY"
+required    = false
+description = "API key for the OpenAI-compatible endpoint serving Gemma 4. Without it the app runs in fallback (non-AI) ranking mode."
+
+[[secret]]
+name        = "LLM_API_BASE_URL"
+required    = false
+description = "Base URL of the OpenAI-compatible API, e.g. https://openrouter.ai/api/v1 (default) or https://generativelanguage.googleapis.com/v1beta/openai"
+
+[[secret]]
+name        = "LLM_MODEL"
+required    = false
+description = "Gemma 4 model id on your provider, e.g. google/gemma-4-31b-it (default). Check your provider's model list for the exact id."
+
+[[secret]]
+name        = "GITHUB_TOKEN"
+required    = false
+description = "Optional GitHub personal access token (no scopes needed) for higher API rate limits."
